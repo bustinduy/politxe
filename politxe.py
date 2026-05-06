@@ -12,6 +12,19 @@ from cycler import cycler
 
 import matplotlib.pyplot as plt
 
+__all__ = ["politxe"]
+__version__ = "0.1.0"
+
+POLITXE_COLORS = [
+    "#0C5DA5",
+    "#00B945",
+    "#FF9500",
+    "#FF2C00",
+    "#845B97",
+    "#474747",
+    "#9e9e9e",
+]
+
 
 def politxe(
     ax: plt.Axes,
@@ -40,7 +53,7 @@ def politxe(
 
     # Set color cycle
     # Set line style as well for black and white graphs
-    ax.set_prop_cycle(cycler(color=['0C5DA5', '00B945', 'FF9500', 'FF2C00', '845B97', '474747', '9e9e9e']))
+    ax.set_prop_cycle(cycler(color=POLITXE_COLORS))
 
     # ------------------------------------------------
     # Spines
