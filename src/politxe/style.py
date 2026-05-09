@@ -1,19 +1,9 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Tue May  5 15:30:21 2026
-
-@author: ibu
-"""
+"""Matplotlib styling helpers for publication-style scientific plots."""
 
 from __future__ import annotations
 
 from cycler import cycler
-
-import matplotlib.pyplot as plt
-
-__all__ = ["politxe"]
-__version__ = "0.1.0"
+from matplotlib.axes import Axes
 
 POLITXE_COLORS = [
     "#0C5DA5",
@@ -27,7 +17,7 @@ POLITXE_COLORS = [
 
 
 def politxe(
-    ax: plt.Axes,
+    ax: Axes,
     *,
     with_grid: bool = False,
     minor_ticks: bool = False,
@@ -42,21 +32,17 @@ def politxe(
     legend_size: int = 14,
     line_width: float = 1.0,
     marker_size: float = 5,
-) -> plt.Axes:
+) -> Axes:
     """
     Style a Matplotlib Axes object for publication-style scientific plots.
 
-    This version uses serif fonts and only modifies the provided Axes object.
+    This uses serif fonts and only modifies the provided Axes object.
     It does not change global Matplotlib rcParams.
     """
 
-
-    # Set color cycle
-    # Set line style as well for black and white graphs
+    # Set the color cycle for lines created after the style is applied.
     ax.set_prop_cycle(cycler(color=POLITXE_COLORS))
 
-    # ------------------------------------------------
-    # Spines
     ax.spines["left"].set_position(("outward", spine_offset))
     ax.spines["bottom"].set_position(("outward", spine_offset))
 
@@ -66,8 +52,6 @@ def politxe(
     for spine in ax.spines.values():
         spine.set_linewidth(spine_width)
 
-    # ------------------------------------------------
-    # Ticks
     ax.yaxis.set_ticks_position("left")
     ax.xaxis.set_ticks_position("bottom")
 
@@ -85,26 +69,18 @@ def politxe(
     if minor_ticks:
         ax.minorticks_on()
 
-    # ------------------------------------------------
-    # Grid and background
     ax.grid(with_grid)
     ax.set_facecolor(facecolor)
 
-    # ------------------------------------------------
-    # Axis labels
     ax.xaxis.label.set_family(font_family)
     ax.yaxis.label.set_family(font_family)
 
     ax.xaxis.label.set_fontsize(label_size)
     ax.yaxis.label.set_fontsize(label_size)
 
-    # ------------------------------------------------
-    # Title
     ax.title.set_family(font_family)
     ax.title.set_fontsize(title_size)
 
-    # ------------------------------------------------
-    # Legend, if present
     legend = ax.get_legend()
     if legend is not None:
         for text in legend.get_texts():
@@ -113,8 +89,6 @@ def politxe(
 
         legend.get_frame().set_linewidth(spine_width)
 
-    # ------------------------------------------------
-    # Lines and markers
     for line in ax.lines:
         line.set_linewidth(line_width)
         line.set_markersize(marker_size)
